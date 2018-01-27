@@ -70,5 +70,4 @@ The files created should contain the information they say they do!  If you look 
 ### Limitations
 
 * It only collects trade data if you have a current non-zero balance on binance.  
-* As written it only has data for BTC based trades which use BNB as the commission asset.  If you have ETH or USDT trades then you'll see a NaN appear in the output files.
- * In theory it should be straightforward to address this (in theory because I don't have any non BTC trades on binance so I haven't tested it).  You'll just need to use the scrape script (above) to gather the historical data and then you'll need to add a `loadHistoricalPrices` call in the `getExchangeData` function.
+* As written it only has data for BTC based trades which use BNB as the commission asset.  If you have ETH or USDT trades then you'll see a NaN appear in the output files. In theory it should be straightforward to address this (in theory because I don't have any non BTC trades on binance so I haven't tested it).  You'll just need to use the scrape script (above) to gather the historical data and then you'll need to add a `loadHistoricalPrices` call in the `getExchangeData` function.
