@@ -71,3 +71,44 @@ The files created should contain the information they say they do!  If you look 
 
 * It only collects trade data if you have a current non-zero balance on binance.  
 * As written it only has data for BTC based trades which use BNB as the commission asset.  If you have ETH or USDT trades then you'll see a NaN appear in the output files. In theory it should be straightforward to address this (in theory because I don't have any non BTC trades on binance so I haven't tested it).  You'll just need to use the scrape script (above) to gather the historical data and then you'll need to add a `loadHistoricalPrices` call in the `getExchangeData` function.
+
+## bittrex.js
+
+The same as `binance.js` but for bittrex.  But you guessed, right?
+
+### Dependencies
+* request, fs, crypto
+
+### Installation
+Before running set up two environment variables that contain your key information
+```
+setenv BITTREX_API_KEY= your key from the bittrex website
+setenv BITTREX_API_SECRET= your secret for this key from the bittrex website
+```
+Note, a later version will probably manage your keys better than this.
+
+You will also need the historical data for BTC for 2017 and 2018 - these files are provided for you.  (Also see the limitations section!)
+
+### Usage
+```
+node bittrex.js
+```
+
+### Example
+```
+gathering data from bittrex
+
+https://www.bittrex.com/api/v1.1/account/getbalances?apikey=8527d1c627794c8a8604e2e98b4d6be2&nonce=1517244878
+https://www.bittrex.com/api/v1.1/account/getwithdrawalhistory?apikey=8527d1c627794c8a8604e2e98b4d6be2&nonce=1517244878
+https://www.bittrex.com/api/v1.1/account/getdeposithistory?apikey=8527d1c627794c8a8604e2e98b4d6be2&nonce=1517244878
+https://www.bittrex.com/api/v1.1/account/getorderhistory?apikey=8527d1c627794c8a8604e2e98b4d6be2&nonce=1517244879
+processing trade for 2018-01-07T18:14:47.377 LSK
+bittrex trade information with historical prices from coinmarketcap.com was saved to bittrex_trades.tsv
+bittrex deposit/withrdrawal information with historical prices from coinmarketcap.com was saved to bittrex_transfers.tsv
+bittrex exchnage data saved to bittrex_latest.json
+bittrex_transactions.tsv contains both trades and transfers and is sorted by time```
+The files created should contain the information they say they do!  If you look at the tsv's and see a bunch of NaNs where you expect numbers then read the 'limitations' section (ditto if you look at the json file and see a bunch of warnings)
+
+### Limitations
+
+* As written it only has data for BTC based trades.  See `binance.js Limitations` section above for more info.
